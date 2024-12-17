@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Desafio 11 - Dogs</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #a3c9f1; /* Cor de fundo azul pastel */
+      color: #333333; /* Cor do texto na página */
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+    }
+    .container {
+      text-align: center;
+      padding: 20px;
+      background-color: #d1e4f8; /* Cor mais clara para o card */
+      border-radius: 10px;
+      box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+      width: 90%;
+      max-width: 500px;
+    }
+    h1 {
+      color: #4a4a4a;
+    }
+    img {
+      max-width: 100%;
+      border-radius: 10px;
+      margin: 20px 0;
+      width: 300px;
+      height: 300px;
+      object-fit: cover;
+    }
+    button {
+      padding: 12px 25px;
+      background-color: #78b9d1; /* Botão azul pastel */
+      color: #ffffff; /* Cor do texto do botão */
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 16px;
+      transition: background-color 0.3s ease;
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3); /* Sombras no texto do botão */
+    }
+    button:hover {
+      background-color: #5c95b6; /* Cor do botão ao passar o mouse */
+    }
+    button:focus {
+      outline: none;
+      box-shadow: 0 0 5px rgba(72, 145, 20, 0.8);
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Veja um Cachorro Aleatório!</h1>
+    <img id="dogImage" src="" alt="Imagem de cachorro">
+    <br>
+    <button id="loadNewImage">Mostrar outra imagem</button>
+  </div>
+
+  <script>
+    function randomDoguinho() {
+      const url = "https://dog.ceo/api/breeds/image/random";
+      fetch(url)
+        .then(response => {
+          if (!response.ok) {
+            throw new Error(`Erro na Requisição: ${response.status}`);
+          }
+          return response.json();
+        })
+        .then(data => {
+          const img = document.getElementById('dogImage');
+          img.src = data.message;
+        })
+        .catch(error => {
+          console.error('Erro ao buscar imagem:', error);
+        });
+    }
+    window.onload = function () {
+        randomDoguinho();
+      document.getElementById('loadNewImage').addEventListener('click', function() {
+        randomDoguinho();
+      });
+    };
+  </script>
+</body>
+</html>
